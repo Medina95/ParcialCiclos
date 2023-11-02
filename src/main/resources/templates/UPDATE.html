@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Employee</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="mb-4">Actualizar Empleado</h2>
+    </div>
+
+    <div class="card-body">
+      <form th:action="@{'/empleados/editar/' + ${employee.employeeId}}" method="post">
+        <input type="hidden" id="employeeId" name="employeeId" th:value="${employee.employeeId}" />
+
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name:</label>
+          <input type="text" class="form-control" id="firstName" name="firstName"
+                 th:value="${employee.firstName}" required>
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name:</label>
+          <input type="text" class="form-control" id="lastName" name="lastName"
+                 th:value="${employee.lastName}" required>
+        </div>
+        <div class="mb-3">
+          <label for="role" class="form-label">Role:</label>
+          <input type="text" class="form-control" id="role" name="role" th:value="${employee.role}"
+                 required>
+        </div>
+        <div class="mb-3">
+          <label for="salary" class="form-label">Salary:</label>
+          <input type="number" class="form-control" id="salary" name="salary"
+                 th:value="${employee.salary}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Empleados Por Genero</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.22/c3.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* Estilo para alinear el contenido en la parte superior y centrar horizontalmente el gráfico */
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Estilo para hacer el gráfico más grande */
+        #chart {
+            width: 40%;
+            height: 40%;
+            margin: 0 auto; /* Centra horizontalmente el gráfico */
+        }
+
+        /* Estilo para agrandar los porcentajes y el número de personas */
+        .c3-chart-arc text {
+            font-size: 20px;
+        }
+
+        /* Aumenta el tamaño del texto en las leyendas */
+        .c3-legend-item text {
+            font-size: 22px;
+        }
+    </style>
+</head>
+<body>
+    <center><h1>Empleados Por Genero</h1></center>
+    <div id="chart"></div>
+
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.22/c3.min.js"></script>
+    <script th:inline="javascript">
+        // Datos para el gráfico de pastel
+        var empresaEmpleadoCount = /*[[${empresaEmpleadoCount}]]*/ {};
+
+        var chartData = {
+            columns: [],
+            type: 'pie'
+        };
+
+        for (var empresa in empresaEmpleadoCount) {
+            chartData.columns.push([empresa + ' (' + empresaEmpleadoCount[empresa] + ')', empresaEmpleadoCount[empresa]]);
+        }
+
+        // Genera el gráfico de pastel
+        var chart = c3.generate({
+            bindto: '#chart',
+            data: chartData
+        });
+    </script>
+</body>
+</html>

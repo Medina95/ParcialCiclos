@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Empleados</title>
+    <!-- Incluir la hoja de estilo de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Lista de Empleados</h1>
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Primer Nombre</th>
+                    <th>Apellido</th>
+                    <th>Actualizar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="empleado : ${empleados}" data-id="${empleado.employeeId}">
+                    <td th:text="${empleado.employeeId}"></td>
+                    <td th:text="${empleado.firstName}"></td>
+                    <td th:text="${empleado.lastName}"></td>
+                    <td><a th:href="@{/empleados/editar/{id}(id=${empleado.employeeId})}" class="btn btn-warning">Actualizar</a></td>
+                    <td>
+
+                        <form th:action="@{'/empleados/eliminar/' + ${empleado.employeeId}}" method="post">
+
+                            <button type="submit" class="btn btn-danger" th:attr="onclick='return confirm(\'¿Estás seguro de que deseas eliminar a ' + ${empleado.firstName} + ' ' + ${empleado.lastName} + '?\')'">Eliminar</button>
+
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Botón "Nuevo" para agregar empleado -->
+        <a class="btn btn-success" th:href="@{/empleados/agregar}">Nuevo</a>
+    </div>
+
+  
+</body>
+</html>

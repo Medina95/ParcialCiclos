@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Histograma de Salarios</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="histograma"></canvas>
+    <script th:inline="javascript">
+        var marcasDeClase = /*[[${marcasDeClase}]]*/{};
+        var marcasDeClaseConPesos = marcasDeClase.map(function(marca) {
+            return '$' + marca;
+        });
+
+        var frecuenciaAbsoluta = /*[[${frecuenciaAbsoluta}]]*/{};
+
+        var data = {
+            labels: marcasDeClaseConPesos, // Usamos el nuevo arreglo con el signo de pesos
+            datasets: [
+                {
+                    label: 'Histograma de Salarios',
+                    data: frecuenciaAbsoluta,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        var options = {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Salarios'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Número de Empleados'
+                    }
+                }
+            }
+        };
+
+        var ctx = document.getElementById('histograma').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    </script>
+</body>
+</html>
